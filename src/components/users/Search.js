@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class Search extends Component {
   state = {
@@ -9,11 +10,16 @@ export class Search extends Component {
   //   this.setState({ text: e.target.value });
   // };
 
+  static propTypes = {
+    searchUsers: PropTypes.func.isRequired
+  };
+
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   onSubmit = e => {
     // to prevent submitting to a file
     e.preventDefault();
-    console.log(this.state.text);
+    this.props.searchUsers(this.state.text);
+    this.setState({ text: '' });
   };
   render() {
     // If arrow functions are not used 'this' must be passed

@@ -13,9 +13,13 @@ class App extends Component {
   // using axios instead of fetch
   async componentDidMount() {
     this.setState({ loading: true });
-    const res = await axios.get('https://api.github.com/users');
+    // Environment variables are located in a file at the root of the project called .env.local
+    // REACT_APP_GITHUB_CLIENT_ID='9a3f1383c73e33362eb9'
+    // REACT_APP_GITHUB_CLIENT_SECRET='a8a395b7da364e07a173c20c64bacd99f5741767'
+    const res = await axios.get(
+      `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
     this.setState({ users: res.data, loading: false });
-    console.log(res.data);
   }
   render() {
     return (
